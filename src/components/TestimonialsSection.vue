@@ -1,0 +1,74 @@
+<template>
+  <section id="velemenyek" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-xs tracking-[0.2em] uppercase text-primary font-medium mb-4">Visszajelzések</p>
+        <h2 class="section-title">Mások mondták</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">
+          Ami igazán számít: az eredmény, amit az ügyfeleim elérnek.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          v-for="review in reviews"
+          :key="review.name"
+          class="card relative"
+        >
+          <!-- Idézőjel dekoráció -->
+          <div class="absolute top-6 right-8 font-serif text-6xl leading-none text-primary/15 select-none">"</div>
+
+          <!-- Csillagok -->
+          <div class="flex gap-1 mb-4">
+            <svg v-for="n in 5" :key="n" class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+
+          <p class="text-text-main/80 text-sm leading-relaxed mb-6 italic">
+            "{{ review.text }}"
+          </p>
+
+          <!-- Szerző -->
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0"
+                 :style="{ background: review.avatarBg }">
+              {{ review.initials }}
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-heading">{{ review.name }}</p>
+              <p class="text-xs text-text-main/50">{{ review.role }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup>
+const reviews = [
+  {
+    name: 'Kovács Anna',
+    role: 'Logopédia – 3 hónapja jár',
+    initials: 'KA',
+    avatarBg: 'linear-gradient(135deg, #8DBAD4, #6aa0bf)',
+    text: 'A lányom 5 éves korában kezdte a terápiát Noéminél, és fél év alatt hatalmas fejlődést értünk el. Türelmes, kedves és nagyon szakértő – nem tudom eléggé ajánlani.',
+  },
+  {
+    name: 'Fekete Péter',
+    role: 'Jóga – rendszeres látogató',
+    initials: 'FP',
+    avatarBg: 'linear-gradient(135deg, #B8A9CC, #9d8bba)',
+    text: 'Az órákon tökéletesen megtalálom az egyensúlyt a kihívás és a pihenés között. Noémi minden egyes alkalommal valami újat hoz, és érezni, hogy valóban törődik velünk.',
+  },
+  {
+    name: 'Szabó Éva',
+    role: 'Masszázs – rendszeres ügyfél',
+    initials: 'SÉ',
+    avatarBg: 'linear-gradient(135deg, #A8CCBD, #7db3a0)',
+    text: 'Hetek óta tartó hátfájásom szűnt meg néhány masszázs kezelés után. Noémi profin azonosítja a problémát, és a kezelés után napokig tartó könnyedséget érzek.',
+  },
+]
+</script>
