@@ -92,21 +92,30 @@ async function uploadImage() {
   uploading.value = true
   errorMessage.value = ''
 
-  const formData = new FormData()
-  formData.append('file', selectedFile.value)
-  formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET)
-  formData.append('public_id', 'noemi-idopontok')
-  formData.append('overwrite', 'true')
-
   try {
-    const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      { method: 'POST', body: formData }
-    )
-    if (!res.ok) throw new Error('Upload failed')
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = reject
+      reader.readAsDataURL(selectedFile.value)
+    })
+
+    const res = await fetch('/api/upload-image', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        password: import.meta.env.VITE_ADMIN_PASSWORD,
+        file: base64
+      })
+    })
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      throw new Error(data.error?.message || `HTTP ${res.status}`)
+    }
     uploadSuccess.value = true
-  } catch {
-    errorMessage.value = 'Feltöltési hiba. Ellenőrizd az internet-kapcsolatot és próbáld újra.'
+  } catch (e) {
+    errorMessage.value = `Feltöltési hiba: ${e.message}`
   } finally {
     uploading.value = false
   }
