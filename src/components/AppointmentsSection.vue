@@ -14,8 +14,7 @@
 <script setup>
 import { ref } from 'vue'
 const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
-const today = new Date().toISOString().split('T')[0]
 const imageUrl = ref(cloudName
-  ? `https://res.cloudinary.com/${cloudName}/image/upload/noemi-idopontok.jpg?v=${today}`
+  ? `https://res.cloudinary.com/${cloudName}/image/upload/noemi-idopontok.jpg`
   : '/idopontok1.jpg')
 </script>
