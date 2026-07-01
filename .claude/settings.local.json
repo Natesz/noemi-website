@@ -7,7 +7,18 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
-      "Bash(curl -s http://localhost:5173)"
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(git check-ignore *)",
+      "Bash(npx netlify *)",
+      "Bash(echo \"started with pid $!\")",
+      "Bash(cygpath -w /tmp/netlify-dev.log)",
+      "Bash(curl -s -X POST http://localhost:8888/api/titkos-events -H \"Content-Type: application/json\" -d '{\"password\":\"nyeles2\",\"data\":{\"customEvents\":{\"2026-07-10\":[{\"id\":\"test1\",\"text\":\"teszt esemény\"}]}}}')",
+      "Bash(curl -s \"http://localhost:8888/api/titkos-events?password=nyeles2\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:8888/api/titkos-events?password=rossz\")",
+      "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>console.log\\(JSON.parse\\(d\\)\\)\\)\")",
+      "Bash(curl -s -o /dev/null -w \"index: %{http_code}\\\\n\" http://localhost:8888/)",
+      "Bash(curl -s http://localhost:5173/titkos)",
+      "Bash(taskkill //F //IM node.exe //T)"
     ]
   }
 }

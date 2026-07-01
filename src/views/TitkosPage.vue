@@ -203,8 +203,10 @@ const wrongPassword = ref(false)
 function checkPassword() {
   if (passwordInput.value === 'nyeles2') {
     wrongPassword.value = false
+    syncPassword.value = passwordInput.value
     phase.value = 'modal'
     nextTick(() => initNemPosition())
+    fetchRemoteStorage()
   } else {
     wrongPassword.value = true
   }
@@ -255,7 +257,7 @@ const successMessage = computed(() =>
   `Szuper, akkor ${NOW.getFullYear()}. ${HUNGARIAN_MONTHS[NOW.getMonth()]} ${NOW.getDate()}. este sex ❤️`
 )
 
-// ── LocalStorage ───────────────────────────────────────────────────────────
+// ── Tárolás (localStorage cache + szerveroldali szinkron) ──────────────────
 function loadStorage() {
   try {
     return JSON.parse(localStorage.getItem('titkos-events') || '{}')
@@ -265,10 +267,37 @@ function loadStorage() {
 }
 
 const storage = ref(loadStorage())
+const syncPassword = ref('')
+
+async function fetchRemoteStorage() {
+  try {
+    const res = await fetch(`/api/titkos-events?password=${encodeURIComponent(syncPassword.value)}`)
+    if (!res.ok) return
+    const remote = await res.json()
+    if (remote && Object.keys(remote).length > 0) {
+      storage.value = remote
+      localStorage.setItem('titkos-events', JSON.stringify(remote))
+    } else if (Object.keys(storage.value).length > 0) {
+      // Első szinkron: a más eszközön még csak helyben létező adatokat felküldjük.
+      pushRemoteStorage(storage.value)
+    }
+  } catch {
+    // Nincs internet / hiba esetén marad a helyi (localStorage) állapot.
+  }
+}
+
+function pushRemoteStorage(newVal) {
+  fetch('/api/titkos-events', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: syncPassword.value, data: newVal }),
+  }).catch(() => {})
+}
 
 function persistStorage(newVal) {
   storage.value = newVal
   localStorage.setItem('titkos-events', JSON.stringify(newVal))
+  pushRemoteStorage(newVal)
 }
 
 function addCustomEvent(dateKey, text) {
