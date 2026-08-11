@@ -2,7 +2,7 @@
   <section id="velemenyek" class="py-24 bg-white">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <p class="text-xs tracking-[0.2em] uppercase text-primary font-medium mb-4">Visszajelzések</p>
+        <p class="section-label">Visszajelzések</p>
         <h2 class="section-title">Mások mondták</h2>
         <div class="section-divider"></div>
         <p class="section-subtitle">
@@ -53,21 +53,21 @@ const reviews = [
     name: 'Kovács Anna',
     role: 'Logopédia – 3 hónapja jár',
     initials: 'KA',
-    avatarBg: 'linear-gradient(135deg, #8DBAD4, #6aa0bf)',
+    avatarBg: 'linear-gradient(135deg, #A6CBE0, #6A9CBB)',
     text: 'A lányom 5 éves korában kezdte a terápiát Noéminél, és fél év alatt hatalmas fejlődést értünk el. Türelmes, kedves és nagyon szakértő – nem tudom eléggé ajánlani.',
   },
   {
     name: 'Fekete Péter',
     role: 'Jóga – rendszeres látogató',
     initials: 'FP',
-    avatarBg: 'linear-gradient(135deg, #B8A9CC, #9d8bba)',
+    avatarBg: 'linear-gradient(135deg, #C4E2F2, #8DBAD4)',
     text: 'Az órákon tökéletesen megtalálom az egyensúlyt a kihívás és a pihenés között. Noémi minden egyes alkalommal valami újat hoz, és érezni, hogy valóban törődik velünk.',
   },
   {
     name: 'Szabó Éva',
-    role: 'Masszázs – rendszeres ügyfél',
+    role: 'Gyógymasszázs – rendszeres ügyfél',
     initials: 'SÉ',
-    avatarBg: 'linear-gradient(135deg, #A8CCBD, #7db3a0)',
+    avatarBg: 'linear-gradient(135deg, #B7C4CE, #7A8794)',
     text: 'Hetek óta tartó hátfájásom szűnt meg néhány masszázs kezelés után. Noémi profin azonosítja a problémát, és a kezelés után napokig tartó könnyedséget érzek.',
   },
 ]

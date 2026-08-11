@@ -4,11 +4,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 @layer base {
   body {
-    @apply bg-bg-soft text-text-main font-sans antialiased;
+    @apply bg-white text-text-main font-sans antialiased;
   }
 
   h1, h2, h3 {
@@ -29,9 +30,13 @@ html {
     @apply text-base lg:text-lg text-text-main/70 text-center max-w-xl mx-auto mb-14;
   }
 
+  .section-label {
+    @apply text-xs tracking-[0.2em] uppercase text-primary font-medium mb-4;
+  }
+
   .btn-primary {
     @apply inline-block bg-primary text-white font-medium py-3 px-8 rounded-full
-           hover:bg-[#7aadc9] transition-colors duration-200 cursor-pointer;
+           hover:bg-primary-dark transition-colors duration-200 cursor-pointer;
   }
 
   .btn-outline {
@@ -40,6 +45,37 @@ html {
   }
 
   .card {
-    @apply bg-white rounded-2xl p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300;
+    @apply bg-white rounded-2xl p-8 shadow-sm ring-1 ring-line
+           hover:shadow-md hover:-translate-y-1 transition-all duration-300;
+  }
+
+  /* Jogi / tájékoztató oldalak tipográfiája */
+  .legal-prose h2 {
+    @apply font-serif text-xl lg:text-2xl font-semibold text-heading mt-10 mb-3;
+  }
+  .legal-prose h3 {
+    @apply font-sans text-base font-semibold text-heading mt-6 mb-2;
+  }
+  .legal-prose p {
+    @apply text-text-main/80 leading-relaxed mb-4;
+  }
+  .legal-prose ul {
+    @apply list-disc pl-6 space-y-1.5 text-text-main/80 mb-4;
+  }
+  .legal-prose ol {
+    @apply list-decimal pl-6 space-y-1.5 text-text-main/80 mb-4;
+  }
+  .legal-prose a {
+    @apply text-primary-dark underline hover:no-underline;
+  }
+  .legal-prose table {
+    @apply w-full text-sm border-collapse mb-4;
+  }
+  .legal-prose th,
+  .legal-prose td {
+    @apply border border-line px-3 py-2 text-left align-top;
+  }
+  .legal-prose th {
+    @apply bg-bg-soft font-semibold text-heading;
   }
 }

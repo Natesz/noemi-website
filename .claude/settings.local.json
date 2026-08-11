@@ -18,7 +18,10 @@
       "Bash(node -e \"let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>console.log\\(JSON.parse\\(d\\)\\)\\)\")",
       "Bash(curl -s -o /dev/null -w \"index: %{http_code}\\\\n\" http://localhost:8888/)",
       "Bash(curl -s http://localhost:5173/titkos)",
-      "Bash(taskkill //F //IM node.exe //T)"
+      "Bash(taskkill //F //IM node.exe //T)",
+      "Bash(taskkill //F //IM node.exe)",
+      "PowerShell($ports = 5173,5174; foreach \\($p in $ports\\) { $c = Get-NetTCPConnection -LocalPort $p -State Listen -ErrorAction SilentlyContinue; foreach \\($conn in $c\\) { Write-Output \"port $p -> PID $\\($conn.OwningProcess\\)\"; Stop-Process -Id $conn.OwningProcess -Force -ErrorAction SilentlyContinue } }; Start-Sleep -Milliseconds 800; Write-Output \"leallitva\")",
+      "PowerShell(netstat *)"
     ]
   }
 }

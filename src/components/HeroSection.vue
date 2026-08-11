@@ -1,38 +1,61 @@
 <template>
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background: linear-gradient(160deg, #EEF2F8 0%, #E8EBF5 40%, #EDE8F4 100%);">
-
+  <section
+    class="relative overflow-hidden pt-28 pb-24 lg:pt-36 lg:pb-32"
+    style="background: linear-gradient(160deg, #FFFFFF 0%, #EFF6FB 45%, #E7EDF2 100%);"
+  >
     <!-- Dekoratív körök -->
-    <div class="absolute top-20 right-10 w-72 h-72 rounded-full opacity-20" style="background: radial-gradient(circle, #8DBAD4, transparent);" />
-    <div class="absolute bottom-32 left-8 w-52 h-52 rounded-full opacity-15" style="background: radial-gradient(circle, #B8A9CC, transparent);" />
+    <div class="absolute -top-10 right-0 w-80 h-80 rounded-full opacity-40 pointer-events-none"
+         style="background: radial-gradient(circle, #C4E2F2, transparent 70%);" />
+    <div class="absolute bottom-24 -left-10 w-64 h-64 rounded-full opacity-40 pointer-events-none"
+         style="background: radial-gradient(circle, #DDE4EA, transparent 70%);" />
 
-    <!-- Tartalom -->
-    <div class="relative text-center px-6 pt-24 pb-32 max-w-3xl mx-auto">
-      <p class="text-xs tracking-[0.25em] uppercase text-primary font-medium mb-6">
-        Logopédus · Jógatanár · Masszőr
-      </p>
+    <div class="relative max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-      <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-semibold text-heading leading-tight mb-6">
-        Szia, <em class="not-italic text-primary">Noémi</em> vagyok
-      </h1>
+        <!-- Szöveg -->
+        <div class="text-center md:text-left order-2 md:order-1">
+          <p class="section-label">Logopédus · Szomatopedagógus · Jóga · Masszázs</p>
 
-      <p class="text-lg sm:text-xl text-text-main/70 leading-relaxed max-w-xl mx-auto mb-10">
-        Segítek megtalálni az egyensúlyt – a hangodban, a mozgásodban és a testedben.
-      </p>
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-heading leading-tight mb-6">
+            Szia, <em class="not-italic text-primary">Noémi</em> vagyok
+          </h1>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#kapcsolat" class="btn-primary">
-          Időpontot foglalok
-        </a>
-        <a href="#rolam" class="btn-outline">
-          Tudj meg többet
-        </a>
+          <p class="text-lg text-text-main/75 leading-relaxed mb-8 max-w-md mx-auto md:mx-0">
+            Hiszek benne, hogy a beszéd örömteli kapcsolódás. Logopédusként, jógaoktatóként és
+            gyógymasszőrként abban segítek, hogy a hangod és a tested is megtalálja az egyensúlyát.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <RouterLink :to="{ path: '/', hash: '#kapcsolat' }" class="btn-primary">
+              Időpontot kérek
+            </RouterLink>
+            <a href="#bemutatkozas" class="btn-outline">
+              Bemutatkozás
+            </a>
+          </div>
+        </div>
+
+        <!-- Fotó -->
+        <div class="flex justify-center md:justify-end order-1 md:order-2">
+          <div class="relative">
+            <img
+              src="/noemi.jpg"
+              alt="Noémi, logopédus és szomatopedagógus"
+              class="relative z-10 w-64 h-80 sm:w-72 sm:h-[22rem] lg:w-80 lg:h-[25rem] object-cover object-top rounded-[2rem] shadow-xl ring-4 ring-white"
+            />
+            <!-- Dekoratív elemek -->
+            <div class="absolute -bottom-5 -right-5 w-28 h-28 rounded-full bg-primary-soft" />
+            <div class="absolute -top-5 -left-5 w-20 h-20 rounded-full bg-line" />
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- Hullám alul -->
-    <div class="absolute bottom-0 left-0 right-0">
-      <svg viewBox="0 0 1440 72" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-16 lg:h-20">
-        <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="#F4F4F6" />
+    <div class="absolute bottom-0 left-0 right-0 leading-none">
+      <svg viewBox="0 0 1440 72" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-12 lg:h-16 block">
+        <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,72 L0,72 Z" fill="#FFFFFF" />
       </svg>
     </div>
   </section>

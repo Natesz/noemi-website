@@ -7,12 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary:   '#8DBAD4',
-        secondary: '#B8A9CC',
-        accent:    '#C9E0EC',
-        heading:   '#2A3547',
-        'text-main': '#3D4A5C',
-        'bg-soft':  '#F4F4F6',
+        // babakék
+        primary:      '#8DBAD4',
+        'primary-dark': '#6A9CBB',
+        'primary-soft': '#D6E9F5',
+        accent:       '#D6E9F5',
+        // szürkék
+        heading:      '#2F3A45',
+        'text-main':  '#4A5561',
+        secondary:    '#9AA7B4',
+        muted:        '#7A8794',
+        line:         '#E4E9ED',
+        'bg-soft':    '#F5F7F9',
       },
       fontFamily: {
         sans:  ['Inter', 'system-ui', 'sans-serif'],

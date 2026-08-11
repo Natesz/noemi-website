@@ -1,32 +1,45 @@
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-primary/10 transition-shadow duration-300" :class="{ 'shadow-sm': scrolled }">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+  <header
+    class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-line transition-shadow duration-300"
+    :class="{ 'shadow-sm': scrolled }"
+  >
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
 
-      <!-- Logo -->
-      <a href="#" class="flex flex-col leading-none">
-        <span class="font-serif text-2xl font-semibold text-heading tracking-wide">Noémi</span>
-        <span class="text-[10px] tracking-[0.2em] uppercase text-text-main/50 mt-0.5">Logopédus · Jóga · Masszázs</span>
-      </a>
+      <!-- Logó -->
+      <RouterLink :to="{ path: '/' }" class="flex items-center gap-3 shrink-0">
+        <LogoMark class="w-10 h-10" />
+        <span class="flex flex-col leading-none">
+          <span class="font-serif text-2xl font-semibold text-heading tracking-wide">Noémi</span>
+          <span class="text-[10px] tracking-[0.18em] uppercase text-muted mt-0.5">Logopédus · Jóga · Masszázs</span>
+        </span>
+      </RouterLink>
 
-      <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-7">
-        <a
+      <!-- Desktop menü -->
+      <nav class="hidden lg:flex items-center gap-6">
+        <RouterLink
           v-for="link in links"
-          :key="link.href"
-          :href="link.href"
-          class="text-sm font-medium text-text-main hover:text-primary transition-colors duration-200"
+          :key="link.label"
+          :to="link.to"
+          class="text-sm font-medium text-text-main hover:text-primary-dark transition-colors duration-200"
         >
           {{ link.label }}
-        </a>
-        <a href="#kapcsolat" class="btn-primary text-sm py-2 px-5">
-          Írj nekem
-        </a>
+        </RouterLink>
+        <span
+          class="text-sm font-medium text-muted/60 cursor-default"
+          title="Hamarosan elérhető"
+        >
+          Webáruház
+        </span>
+        <RouterLink :to="{ path: '/', hash: '#kapcsolat' }" class="btn-primary text-sm py-2 px-5">
+          Időpontot kérek
+        </RouterLink>
       </nav>
 
       <!-- Hamburger -->
       <button
         @click="menuOpen = !menuOpen"
-        class="md:hidden p-2 text-text-main hover:text-primary transition-colors"
+        class="lg:hidden p-2 text-text-main hover:text-primary-dark transition-colors"
+        :aria-expanded="menuOpen"
         aria-label="Menü"
       >
         <svg v-if="!menuOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,22 +51,29 @@
       </button>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Mobil menü -->
     <Transition name="slide-down">
-      <div v-if="menuOpen" class="md:hidden bg-white/95 backdrop-blur-sm border-t border-primary/10 px-6 pb-5 pt-3">
+      <div v-if="menuOpen" class="lg:hidden bg-white/95 backdrop-blur-sm border-t border-line px-6 pb-5 pt-3">
         <nav class="flex flex-col gap-1">
-          <a
+          <RouterLink
             v-for="link in links"
-            :key="link.href"
-            :href="link.href"
+            :key="link.label"
+            :to="link.to"
             @click="menuOpen = false"
-            class="py-2.5 text-sm font-medium text-text-main hover:text-primary transition-colors border-b border-primary/5 last:border-0"
+            class="py-2.5 text-sm font-medium text-text-main hover:text-primary-dark transition-colors border-b border-line"
           >
             {{ link.label }}
-          </a>
-          <a href="#kapcsolat" @click="menuOpen = false" class="btn-primary text-sm text-center mt-3">
-            Írj nekem
-          </a>
+          </RouterLink>
+          <span class="py-2.5 text-sm font-medium text-muted/60 border-b border-line">
+            Webáruház <span class="text-[10px] uppercase tracking-wider">– hamarosan</span>
+          </span>
+          <RouterLink
+            :to="{ path: '/', hash: '#kapcsolat' }"
+            @click="menuOpen = false"
+            class="btn-primary text-sm text-center mt-3"
+          >
+            Időpontot kérek
+          </RouterLink>
         </nav>
       </div>
     </Transition>
@@ -62,16 +82,18 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import LogoMark from './LogoMark.vue'
 
 const menuOpen = ref(false)
 const scrolled = ref(false)
 
 const links = [
-  { href: '#rolam', label: 'Rólam' },
-  { href: '#szolgaltatasok', label: 'Szolgáltatások' },
-  { href: '#arak', label: 'Árak' },
-  { href: '#velemenyek', label: 'Vélemények' },
-  { href: '#kapcsolat', label: 'Kapcsolat' },
+  { label: 'Kezdőlap',       to: { path: '/' } },
+  { label: 'Rólam',          to: { path: '/', hash: '#rolam' } },
+  { label: 'Szolgáltatások', to: { path: '/', hash: '#szolgaltatasok' } },
+  { label: 'Árak',           to: { path: '/', hash: '#arak' } },
+  { label: 'Aktualitások',   to: { path: '/', hash: '#aktualitasok' } },
+  { label: 'Kapcsolat',      to: { path: '/', hash: '#kapcsolat' } },
 ]
 
 function handleScroll() {
@@ -95,7 +117,7 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
 }
 .slide-down-enter-to,
 .slide-down-leave-from {
-  max-height: 400px;
+  max-height: 500px;
   opacity: 1;
 }
 </style>
