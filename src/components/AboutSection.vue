@@ -137,7 +137,7 @@ const visibleTrainings = computed(() =>
 
 const qualifications = [
   { title: 'Logopédus', note: 'ELTE Bárczi Gusztáv Gyógypedagógiai Kar, 2018' },
-  { title: 'Gyógypedagógus – szomatopedagógia szakirány', note: 'ELTE Bárczi Gusztáv Gyógypedagógiai Kar, 2018' },
+  { title: 'Gyógypedagógus – szomatopedagógus', note: 'ELTE Bárczi Gusztáv Gyógypedagógiai Kar, 2018' },
   { title: 'Gyógymasszőr' },
   { title: 'Hatha jóga oktató' },
   { title: 'Yin jógaoktató' },

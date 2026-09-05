@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 html {
+  /* Alap betűméret: minden rem-alapú méret (Tailwind text-*, spacing) ehhez igazodik. */
+  font-size: 17px;
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
@@ -31,7 +33,7 @@ html {
   }
 
   .section-label {
-    @apply text-xs tracking-[0.2em] uppercase text-primary font-medium mb-4;
+    @apply text-xs tracking-[0.2em] uppercase text-primary-dark font-semibold mb-4;
   }
 
   .btn-primary {

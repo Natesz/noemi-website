@@ -43,8 +43,8 @@
               </li>
             </ol>
 
-            <RouterLink :to="{ path: '/', hash: '#kapcsolat' }" class="btn-primary w-full text-center mt-8">
-              Időpontot kérek
+            <RouterLink :to="{ path: '/', hash: '#foglalas' }" class="btn-primary w-full text-center mt-8">
+              Időpontot foglalok
             </RouterLink>
           </div>
         </div>
@@ -69,7 +69,7 @@ const steps = [
   },
   {
     title: 'Írj nekem',
-    text: 'Töltsd ki a kapcsolati űrlapot, vagy keress e-mailben, telefonon – írd le pár szóban, miben szeretnél segítséget.',
+    text: 'Töltsd ki a kapcsolati űrlapot, vagy keress e-mailben – írd le pár szóban, miben szeretnél segítséget.',
   },
   {
     title: 'Visszajelzek',

@@ -10,12 +10,12 @@
         <LogoMark class="w-10 h-10" />
         <span class="flex flex-col leading-none">
           <span class="font-serif text-2xl font-semibold text-heading tracking-wide">Noémi</span>
-          <span class="text-[10px] tracking-[0.18em] uppercase text-muted mt-0.5">Logopédus · Jóga · Masszázs</span>
+          <span class="text-[11px] sm:text-xs tracking-[0.14em] uppercase text-primary-dark font-semibold mt-1">Logopédus · Jógaoktató · Masszőr</span>
         </span>
       </RouterLink>
 
       <!-- Desktop menü -->
-      <nav class="hidden lg:flex items-center gap-6">
+      <nav class="hidden xl:flex items-center gap-5">
         <RouterLink
           v-for="link in links"
           :key="link.label"
@@ -30,15 +30,15 @@
         >
           Webáruház
         </span>
-        <RouterLink :to="{ path: '/', hash: '#kapcsolat' }" class="btn-primary text-sm py-2 px-5">
-          Időpontot kérek
+        <RouterLink :to="{ path: '/', hash: '#foglalas' }" class="btn-primary text-sm py-2 px-5">
+          Időpontfoglalás
         </RouterLink>
       </nav>
 
       <!-- Hamburger -->
       <button
         @click="menuOpen = !menuOpen"
-        class="lg:hidden p-2 text-text-main hover:text-primary-dark transition-colors"
+        class="xl:hidden p-2 text-text-main hover:text-primary-dark transition-colors"
         :aria-expanded="menuOpen"
         aria-label="Menü"
       >
@@ -53,7 +53,7 @@
 
     <!-- Mobil menü -->
     <Transition name="slide-down">
-      <div v-if="menuOpen" class="lg:hidden bg-white/95 backdrop-blur-sm border-t border-line px-6 pb-5 pt-3">
+      <div v-if="menuOpen" class="xl:hidden bg-white/95 backdrop-blur-sm border-t border-line px-6 pb-5 pt-3">
         <nav class="flex flex-col gap-1">
           <RouterLink
             v-for="link in links"
@@ -68,11 +68,11 @@
             Webáruház <span class="text-[10px] uppercase tracking-wider">– hamarosan</span>
           </span>
           <RouterLink
-            :to="{ path: '/', hash: '#kapcsolat' }"
+            :to="{ path: '/', hash: '#foglalas' }"
             @click="menuOpen = false"
             class="btn-primary text-sm text-center mt-3"
           >
-            Időpontot kérek
+            Időpontfoglalás
           </RouterLink>
         </nav>
       </div>
@@ -92,6 +92,7 @@ const links = [
   { label: 'Rólam',          to: { path: '/', hash: '#rolam' } },
   { label: 'Szolgáltatások', to: { path: '/', hash: '#szolgaltatasok' } },
   { label: 'Árak',           to: { path: '/', hash: '#arak' } },
+  { label: 'Foglalás',       to: { path: '/', hash: '#foglalas' } },
   { label: 'Aktualitások',   to: { path: '/', hash: '#aktualitasok' } },
   { label: 'Kapcsolat',      to: { path: '/', hash: '#kapcsolat' } },
 ]

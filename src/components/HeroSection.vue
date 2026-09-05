@@ -14,7 +14,7 @@
 
         <!-- Szöveg -->
         <div class="text-center md:text-left order-2 md:order-1">
-          <p class="section-label">Logopédus · Szomatopedagógus · Jóga · Masszázs</p>
+          <p class="section-label">Logopédus · Szomatopedagógus · Jógaoktató · Masszőr</p>
 
           <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-semibold text-heading leading-tight mb-6">
             Szia, <em class="not-italic text-primary">Noémi</em> vagyok
@@ -26,8 +26,8 @@
           </p>
 
           <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <RouterLink :to="{ path: '/', hash: '#kapcsolat' }" class="btn-primary">
-              Időpontot kérek
+            <RouterLink :to="{ path: '/', hash: '#foglalas' }" class="btn-primary">
+              Időpontot foglalok
             </RouterLink>
             <a href="#bemutatkozas" class="btn-outline">
               Bemutatkozás

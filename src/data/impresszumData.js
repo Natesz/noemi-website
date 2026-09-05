@@ -8,7 +8,7 @@ export const provider = {
   profession: 'logopédus, szomatopedagógus, gyógymasszőr, jógaoktató',
   legalForm: 'egyéni vállalkozó',
   address: '[kitöltendő – székhely: postai cím]',
-  email: '[kitöltendő – e-mail cím]',
+  email: 'nyevelkanoemi@gmail.com',
   phone: '[kitöltendő – telefonszám]',
   taxNumber: '[kitöltendő – adószám]',
   registrationNumber: '[kitöltendő – nyilvántartási szám]',

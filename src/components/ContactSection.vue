@@ -31,7 +31,13 @@
               </div>
               <div>
                 <p class="text-xs tracking-wider uppercase text-muted font-medium mb-1">{{ info.label }}</p>
-                <a v-if="info.href" :href="info.href" class="text-text-main font-medium hover:text-primary-dark transition-colors">
+                <a
+                  v-if="info.href"
+                  :href="info.href"
+                  :target="info.external ? '_blank' : undefined"
+                  :rel="info.external ? 'noopener noreferrer' : undefined"
+                  class="text-text-main font-medium hover:text-primary-dark transition-colors"
+                >
                   {{ info.value }}
                 </a>
                 <p v-else class="text-text-main font-medium">{{ info.value }}</p>
@@ -49,7 +55,7 @@
               </div>
             </div>
             <p class="text-xs text-muted mt-4">
-              A foglalkozások előre egyeztetett időpontban zajlanak.
+              A foglalkozások előre egyeztetett időpontban, online zajlanak.
             </p>
           </div>
         </div>
@@ -87,8 +93,8 @@
               <select id="subject" v-model="form.subject" class="input-field">
                 <option value="">Válassz szolgáltatást…</option>
                 <option value="logopedia">Logopédia</option>
-                <option value="joga">Jóga</option>
-                <option value="masszazs">Gyógymasszázs</option>
+                <option value="joga">Jógaoktatás</option>
+                <option value="masszazs">Masszázs</option>
                 <option value="egyeb">Egyéb</option>
               </select>
             </div>
@@ -137,6 +143,8 @@
 
 <script setup>
 import { ref } from 'vue'
+import { openingHoursRows } from '../data/openingHours'
+import { email as contactEmail, facebook } from '../data/contact'
 
 const form = ref({ name: '', email: '', subject: '', message: '', consent: false })
 const sending = ref(false)
@@ -156,31 +164,28 @@ function submitForm() {
 const contactInfo = [
   {
     label: 'E-mail',
-    value: 'noemi@pelda.hu',
-    href: 'mailto:noemi@pelda.hu',
+    value: contactEmail,
+    href: `mailto:${contactEmail}`,
     paths: ['M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
   },
   {
-    label: 'Telefon',
-    value: '+36 30 000 0000',
-    href: 'tel:+36300000000',
-    paths: ['M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'],
+    label: 'Facebook',
+    value: facebook.label,
+    href: facebook.url,
+    external: true,
+    paths: ['M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.24-1.5 1.5-1.5H16.7V3.9A21 21 0 0014.3 3.8C12 3.8 10.5 5.2 10.5 7.8V10H7.8v3h2.7v8h3z'],
   },
   {
-    label: 'Helyszín',
-    value: 'Budapest',
+    label: 'Hogyan',
+    value: 'Online, videóhívásban',
     paths: [
-      'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z',
-      'M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+      'M15 10l4.55-2.28A1 1 0 0121 8.6v6.8a1 1 0 01-1.45.89L15 14',
+      'M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z',
     ],
   },
 ]
 
-const openingHours = [
-  { day: 'Hétfő – Péntek', hours: '9:00 – 18:00' },
-  { day: 'Szombat', hours: '9:00 – 13:00' },
-  { day: 'Vasárnap', hours: 'Zárva', closed: true },
-]
+const openingHours = openingHoursRows
 </script>
 
 <style scoped>

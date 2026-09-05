@@ -32,24 +32,30 @@
 
           <!-- Árak -->
           <div class="px-8 pb-8 pt-6 flex flex-col flex-1">
-            <div
-              v-for="item in plan.items"
-              :key="item.name + item.duration"
-              class="flex items-center justify-between py-3 border-b border-line last:border-0"
-            >
-              <div>
-                <p class="text-sm font-medium text-heading">{{ item.name }}</p>
-                <p class="text-xs text-muted mt-0.5">{{ item.duration }}</p>
+            <template v-if="plan.items">
+              <div
+                v-for="item in plan.items"
+                :key="item.name + item.duration"
+                class="flex items-center justify-between py-3 border-b border-line last:border-0"
+              >
+                <div>
+                  <p class="text-sm font-medium text-heading">{{ item.name }}</p>
+                  <p class="text-xs text-muted mt-0.5">{{ item.duration }}</p>
+                </div>
+                <p class="font-semibold text-primary-dark whitespace-nowrap ml-4">{{ item.price }}</p>
               </div>
-              <p class="font-semibold text-primary-dark whitespace-nowrap ml-4">{{ item.price }}</p>
-            </div>
+            </template>
+
+            <p v-else class="text-sm text-text-main/80 leading-relaxed py-3">
+              {{ plan.note }}
+            </p>
 
             <RouterLink
-              :to="{ path: '/', hash: '#kapcsolat' }"
+              :to="{ path: '/', hash: plan.ctaHash }"
               class="mt-6 block text-center"
               :class="plan.featured ? 'btn-primary' : 'btn-outline'"
             >
-              Időpontot kérek
+              {{ plan.cta }}
             </RouterLink>
           </div>
         </div>
@@ -59,8 +65,9 @@
         <p class="text-sm text-text-main/80 leading-relaxed">
           <strong class="text-heading">Jó, ha tudod:</strong> az első konzultáció alkalmával felmérem
           az aktuális állapotot, és közösen kitaláljuk, milyen terápiás terv illik hozzád vagy a
-          gyermekedhez. Lemondást a foglalkozás előtt legalább 24 órával kérek – ilyenkor az alkalom
-          díjmentesen áthelyezhető. Fizetés készpénzben vagy előre utalással lehetséges.
+          gyermekedhez. A logopédiai és jógafoglalkozások online zajlanak. Lemondást a foglalkozás
+          előtt legalább 24 órával kérek – ilyenkor az alkalom díjmentesen áthelyezhető.
+          Fizetés előre, banki átutalással lehetséges.
         </p>
         <p class="text-xs text-muted mt-4">
           * Az árak tájékoztató jellegűek, és nem minősülnek ajánlattételnek.
@@ -71,24 +78,32 @@
 </template>
 
 <script setup>
+/**
+ * FIGYELEM: az alábbi logopédia- és jógaárak még a régi, tájékoztató jellegű értékek.
+ * Élesítés előtt a valós árakra kell cserélni őket (a foglalási rendszer is innen
+ * fogja majd olvasni a 30/45/60 perces órák díját).
+ * A masszázsnál szándékosan nincs ár – csak érdeklődésre adunk árajánlatot.
+ */
 const plans = [
   {
     title: 'Logopédia',
     subtitle: 'Egyéni terápiás foglalkozás',
     headerBg: 'linear-gradient(135deg, #EAF3F9, #D6E9F5)',
     featured: false,
+    cta: 'Időpontot foglalok',
     items: [
       { name: 'Első konzultáció, állapotfelmérés', duration: '60 perc', price: '12 000 Ft' },
+      { name: 'Egyéni terápia', duration: '30 perc', price: '8 000 Ft' },
       { name: 'Egyéni terápia', duration: '45 perc', price: '10 000 Ft' },
       { name: 'Egyéni terápia', duration: '60 perc', price: '12 000 Ft' },
-      { name: 'Csomag (5 alkalom)', duration: '60 perc / alkalom', price: '55 000 Ft' },
     ],
   },
   {
-    title: 'Jóga',
+    title: 'Jógaoktatás',
     subtitle: 'Egyéni és csoportos óra',
     headerBg: 'linear-gradient(135deg, #8DBAD4, #6A9CBB)',
     featured: true,
+    cta: 'Időpontot foglalok',
     items: [
       { name: 'Csoportos óra', duration: '60 perc', price: '3 500 Ft' },
       { name: 'Egyéni óra', duration: '60 perc', price: '8 000 Ft' },
@@ -96,15 +111,12 @@ const plans = [
     ],
   },
   {
-    title: 'Gyógymasszázs',
+    title: 'Masszőr',
     subtitle: 'Relaxációs és gyógymasszázs',
     headerBg: 'linear-gradient(135deg, #EDF0F3, #DDE3E8)',
     featured: false,
-    items: [
-      { name: 'Relaxációs masszázs', duration: '60 perc', price: '10 000 Ft' },
-      { name: 'Relaxációs masszázs', duration: '90 perc', price: '14 000 Ft' },
-      { name: 'Gyógymasszázs', duration: '60 perc', price: '12 000 Ft' },
-    ],
+    cta: 'Érdeklődöm',
+    note: 'A masszázs személyes jelenlétet igényel, ezért az időpontot és a díjat egyeztetés után, egyedileg beszéljük meg. Írj nekem, és megkeressük a hozzád illő megoldást.',
   },
 ]
 </script>

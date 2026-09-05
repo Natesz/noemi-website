@@ -12,40 +12,53 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div v-for="service in services" :key="service.title" class="card flex flex-col">
-          <!-- Ikon -->
-          <div
-            class="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
-            :style="{ background: service.iconBg }"
-          >
-            <svg class="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                v-for="(d, i) in service.paths"
-                :key="i"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                :d="d"
-              />
-            </svg>
+        <div
+          v-for="service in services"
+          :key="service.title"
+          class="bg-white rounded-2xl overflow-hidden shadow-sm ring-1 ring-line
+                 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col"
+        >
+          <!-- Kép (ha még nincs feltöltve, színátmenetes ikonos háttér marad) -->
+          <div class="relative h-52 w-full overflow-hidden" :style="{ background: service.iconBg }">
+            <img
+              v-if="!service.imageFailed"
+              :src="service.image"
+              :alt="service.imageAlt"
+              class="w-full h-full object-cover"
+              @error="service.imageFailed = true"
+            />
+            <div v-else class="w-full h-full flex items-center justify-center">
+              <svg class="w-14 h-14 text-white/90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  v-for="(d, i) in service.paths"
+                  :key="i"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  :d="d"
+                />
+              </svg>
+            </div>
           </div>
 
-          <h3 class="font-serif text-xl font-semibold text-heading mb-3">{{ service.title }}</h3>
-          <p class="text-text-main/70 text-sm leading-relaxed mb-5">{{ service.description }}</p>
+          <div class="p-8 flex flex-col flex-1">
+            <h3 class="font-serif text-xl font-semibold text-heading mb-3">{{ service.title }}</h3>
+            <p class="text-text-main/75 text-sm leading-relaxed mb-5">{{ service.description }}</p>
 
-          <ul class="space-y-2 mb-7">
-            <li v-for="item in service.items" :key="item" class="flex items-start gap-2.5 text-sm text-text-main/85">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-[7px]" />
-              <span>{{ item }}</span>
-            </li>
-          </ul>
+            <ul class="space-y-2 mb-7">
+              <li v-for="item in service.items" :key="item" class="flex items-start gap-2.5 text-sm text-text-main/85">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0 mt-[7px]" />
+                <span>{{ item }}</span>
+              </li>
+            </ul>
 
-          <RouterLink
-            :to="{ path: '/', hash: '#arak' }"
-            class="btn-outline text-sm text-center mt-auto"
-          >
-            Árak megtekintése
-          </RouterLink>
+            <RouterLink
+              :to="{ path: '/', hash: service.ctaHash }"
+              class="btn-outline text-sm text-center mt-auto"
+            >
+              {{ service.cta }}
+            </RouterLink>
+          </div>
         </div>
       </div>
 
@@ -60,9 +73,16 @@
 </template>
 
 <script setup>
-const services = [
+import { reactive } from 'vue'
+
+// A képeket a public/ mappába kell tenni ezekkel a nevekkel.
+// Amíg nincsenek ott, a kártya tetején a színátmenetes ikon jelenik meg.
+const services = reactive([
   {
-    title: 'Logopédia',
+    title: 'Logopédus',
+    image: '/szolgaltatas-logopedia.jpg',
+    imageAlt: 'Logopédiai foglalkozás',
+    imageFailed: false,
     description:
       'Egyéni terápia gyermekeknek és felnőtteknek, alapos állapotfelmérésre épülő, személyre szabott terápiás tervvel.',
     iconBg: 'linear-gradient(135deg, #A6CBE0, #6A9CBB)',
@@ -74,9 +94,14 @@ const services = [
       'Nyelvlökéses nyelés terápiája (8–9 éves kortól)',
       'Dadogás, beszédfélelem (logofóbia) oldása',
     ],
+    cta: 'Árak megtekintése',
+    ctaHash: '#arak',
   },
   {
-    title: 'Jóga',
+    title: 'Jógaoktató',
+    image: '/szolgaltatas-joga.jpg',
+    imageAlt: 'Jógaóra',
+    imageFailed: false,
     description:
       'Egyéni és kis csoportos órák, ahol a légzés, a mozgás és a jelenlét összefonódik – kezdőknek és haladóknak egyaránt.',
     iconBg: 'linear-gradient(135deg, #C4E2F2, #8DBAD4)',
@@ -91,9 +116,14 @@ const services = [
       'Légzésgyakorlatok (pránajáma)',
       'Relaxáció, feszültségoldás',
     ],
+    cta: 'Árak megtekintése',
+    ctaHash: '#arak',
   },
   {
-    title: 'Gyógymasszázs',
+    title: 'Masszőr',
+    image: '/szolgaltatas-masszazs.jpg',
+    imageAlt: 'Gyógymasszázs',
+    imageFailed: false,
     description:
       'Relaxációs és gyógymasszázs, amely oldja az izomfeszüléseket, és visszaadja a test természetes egyensúlyát.',
     iconBg: 'linear-gradient(135deg, #B7C4CE, #7A8794)',
@@ -104,6 +134,8 @@ const services = [
       'Nyak- és vállmasszázs',
       'Hátfájdalom, izomfeszülés oldása',
     ],
+    cta: 'Érdeklődöm',
+    ctaHash: '#kapcsolat',
   },
-]
+])
 </script>

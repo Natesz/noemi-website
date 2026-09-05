@@ -51,7 +51,24 @@
       <li><strong>Megőrzés:</strong> a terápia befejezésétől számított 5 év, illetve amíg jogszabály hosszabb megőrzést ír elő.</li>
     </ul>
 
-    <h3>2.3. Számlázás, könyvelés</h3>
+    <h3>2.3. Online időpontfoglalás</h3>
+    <ul>
+      <li>
+        <strong>Kezelt adatok:</strong> név, e-mail cím, a választott időpont és óratípus,
+        időzóna, valamint amit a foglalás megjegyzés mezőjébe írsz. Kérlek, ide
+        <strong>ne írj egészségi állapotra vonatkozó adatot</strong> – ezeket az első
+        foglalkozáson beszéljük át.
+      </li>
+      <li><strong>Cél:</strong> a foglalás rögzítése, visszaigazolása, emlékeztető küldése, a videóhívás létrehozása.</li>
+      <li><strong>Jogalap:</strong> a szolgáltatás nyújtására irányuló szerződés teljesítése, illetve a szerződéskötést megelőző lépések – GDPR 6. cikk (1) b) pont.</li>
+      <li><strong>Megőrzés:</strong> a foglalás időpontjától számított 1 év, ezt követően a foglalási rendszerből törlöm.</li>
+      <li>
+        <strong>Fontos:</strong> a foglalási naptárat külső szolgáltató jeleníti meg, és csak akkor
+        töltődik be, ha erre a weboldalon külön rákattintasz. Addig a böngésződ nem lép kapcsolatba vele.
+      </li>
+    </ul>
+
+    <h3>2.4. Számlázás, könyvelés</h3>
     <ul>
       <li><strong>Kezelt adatok:</strong> név, számlázási cím, a szolgáltatás adatai, fizetett összeg.</li>
       <li><strong>Cél:</strong> a jogszabályi számlaadási és bizonylat-megőrzési kötelezettség teljesítése.</li>
@@ -62,7 +79,7 @@
       </li>
     </ul>
 
-    <h3>2.4. A weboldal használata, sütik</h3>
+    <h3>2.5. A weboldal használata, sütik</h3>
     <p>
       A weboldal működéséhez feltétlenül szükséges technikai adatokat, illetve – kizárólag a
       hozzájárulásoddal – statisztikai célú adatokat kezelek. A részleteket a
@@ -88,6 +105,16 @@
           <td>Cloudinary Ltd.</td>
           <td>a weboldalon megjelenő képek tárolása és kiszolgálása</td>
           <td>technikai adatok (személyes adatot nem tárol)</td>
+        </tr>
+        <tr>
+          <td>Cal.com, Inc.</td>
+          <td>online időpontfoglaló rendszer üzemeltetése</td>
+          <td>név, e-mail cím, a foglalás időpontja és adatai</td>
+        </tr>
+        <tr>
+          <td>Google Ireland Ltd.</td>
+          <td>naptárkezelés (Google Calendar) és videóhívás (Google Meet)</td>
+          <td>név, e-mail cím, a foglalkozás időpontja</td>
         </tr>
         <tr>
           <td>[kitöltendő – e-mail szolgáltató]</td>
