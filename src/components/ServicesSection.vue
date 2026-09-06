@@ -116,8 +116,8 @@ const services = reactive([
       'Légzésgyakorlatok (pránajáma)',
       'Relaxáció, feszültségoldás',
     ],
-    cta: 'Árak megtekintése',
-    ctaHash: '#arak',
+    cta: 'Érdeklődöm',
+    ctaHash: '#kapcsolat',
   },
   {
     title: 'Masszőr',

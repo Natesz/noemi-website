@@ -6,15 +6,16 @@
         <h2 class="section-title">Árak</h2>
         <div class="section-divider"></div>
         <p class="section-subtitle">
-          Minden ár egyéni foglalkozásra vonatkozik. Csomag vásárlásakor kedvezmény érhető el.
+          A logopédiai alkalmak díjait alább találod. A jóga- és masszázsárakat
+          egyeztetés után, egyedileg beszéljük meg.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         <div
           v-for="plan in plans"
           :key="plan.title"
-          class="bg-white rounded-2xl overflow-hidden shadow-sm ring-1 ring-line hover:shadow-md transition-shadow duration-300 flex flex-col"
+          class="bg-white rounded-2xl overflow-hidden shadow-sm ring-1 ring-line hover:shadow-md transition-shadow duration-300 flex flex-col h-full"
           :class="{ 'ring-2 ring-primary': plan.featured }"
         >
           <!-- Fejléc -->
@@ -32,17 +33,22 @@
 
           <!-- Árak -->
           <div class="px-8 pb-8 pt-6 flex flex-col flex-1">
-            <template v-if="plan.items">
-              <div
-                v-for="item in plan.items"
-                :key="item.name + item.duration"
-                class="flex items-center justify-between py-3 border-b border-line last:border-0"
-              >
-                <div>
-                  <p class="text-sm font-medium text-heading">{{ item.name }}</p>
-                  <p class="text-xs text-muted mt-0.5">{{ item.duration }}</p>
+            <template v-if="plan.groups">
+              <div v-for="(group, gi) in plan.groups" :key="group.label" :class="gi > 0 ? 'mt-6' : ''">
+                <p class="text-[11px] font-semibold tracking-[0.15em] uppercase text-muted mb-1">
+                  {{ group.label }}
+                </p>
+                <div
+                  v-for="item in group.items"
+                  :key="item.name + item.duration"
+                  class="flex items-center justify-between py-3 border-b border-line last:border-0"
+                >
+                  <div>
+                    <p class="text-sm font-medium text-heading leading-snug">{{ item.name }}</p>
+                    <p v-if="item.duration" class="text-xs text-muted mt-0.5">{{ item.duration }}</p>
+                  </div>
+                  <p class="font-semibold text-primary-dark whitespace-nowrap ml-4">{{ item.price }}</p>
                 </div>
-                <p class="font-semibold text-primary-dark whitespace-nowrap ml-4">{{ item.price }}</p>
               </div>
             </template>
 
@@ -52,7 +58,7 @@
 
             <RouterLink
               :to="{ path: '/', hash: plan.ctaHash }"
-              class="mt-6 block text-center"
+              class="mt-7 block text-center"
               :class="plan.featured ? 'btn-primary' : 'btn-outline'"
             >
               {{ plan.cta }}
@@ -63,9 +69,10 @@
 
       <div class="mt-12 max-w-3xl mx-auto bg-white rounded-2xl p-6 ring-1 ring-line">
         <p class="text-sm text-text-main/80 leading-relaxed">
-          <strong class="text-heading">Jó, ha tudod:</strong> az első konzultáció alkalmával felmérem
-          az aktuális állapotot, és közösen kitaláljuk, milyen terápiás terv illik hozzád vagy a
-          gyermekedhez. A logopédiai és jógafoglalkozások online zajlanak. Lemondást a foglalkozás
+          <strong class="text-heading">Jó, ha tudod:</strong> a közös munkát logopédiai
+          felméréssel kezdjük, amely alapján kiderül, milyen terápiás terv illik hozzád vagy a
+          gyermekedhez. A rendszeres foglalkozások 4 vagy 8 alkalmas bérlettel vehetők igénybe.
+          A logopédiai és jógafoglalkozások online zajlanak. Lemondást a foglalkozás
           előtt legalább 24 órával kérek – ilyenkor az alkalom díjmentesen áthelyezhető.
           Fizetés előre, banki átutalással lehetséges.
         </p>
@@ -79,36 +86,46 @@
 
 <script setup>
 /**
- * FIGYELEM: az alábbi logopédia- és jógaárak még a régi, tájékoztató jellegű értékek.
- * Élesítés előtt a valós árakra kell cserélni őket (a foglalási rendszer is innen
- * fogja majd olvasni a 30/45/60 perces órák díját).
- * A masszázsnál szándékosan nincs ár – csak érdeklődésre adunk árajánlatot.
+ * A logopédia árak valósak (2026. szeptember). A rendszeres 30/45 perces foglalkozás
+ * kizárólag bérlettel vehető igénybe, alkalmankénti díja nincs.
+ * A jógánál és a masszázsnál szándékosan nincs ár – ezekre egyeztetés után adunk ajánlatot.
  */
 const plans = [
   {
     title: 'Logopédia',
-    subtitle: 'Egyéni terápiás foglalkozás',
+    subtitle: 'Egyéni, online foglalkozás',
     headerBg: 'linear-gradient(135deg, #EAF3F9, #D6E9F5)',
-    featured: false,
+    featured: true,
     cta: 'Időpontot foglalok',
-    items: [
-      { name: 'Első konzultáció, állapotfelmérés', duration: '60 perc', price: '12 000 Ft' },
-      { name: 'Egyéni terápia', duration: '30 perc', price: '8 000 Ft' },
-      { name: 'Egyéni terápia', duration: '45 perc', price: '10 000 Ft' },
-      { name: 'Egyéni terápia', duration: '60 perc', price: '12 000 Ft' },
+    ctaHash: '#foglalas',
+    groups: [
+      {
+        label: 'Egyedi alkalmak',
+        items: [
+          { name: 'Logopédiai felmérés', duration: '60 perc', price: '13 500 Ft' },
+          { name: 'Konzultáció', duration: '30 perc', price: '9 500 Ft' },
+          { name: 'Szakvélemény', duration: 'írásos dokumentum', price: '8 000 Ft' },
+        ],
+      },
+      {
+        label: 'Bérletek',
+        items: [
+          { name: '30 perces foglalkozás', duration: '4 alkalom', price: '34 000 Ft' },
+          { name: '30 perces foglalkozás', duration: '8 alkalom', price: '67 000 Ft' },
+          { name: '45 perces foglalkozás', duration: '4 alkalom', price: '44 000 Ft' },
+          { name: '45 perces foglalkozás', duration: '8 alkalom', price: '87 000 Ft' },
+        ],
+      },
     ],
   },
   {
     title: 'Jógaoktatás',
-    subtitle: 'Egyéni és csoportos óra',
+    subtitle: 'Egyéni és kis csoportos óra',
     headerBg: 'linear-gradient(135deg, #8DBAD4, #6A9CBB)',
-    featured: true,
-    cta: 'Időpontot foglalok',
-    items: [
-      { name: 'Csoportos óra', duration: '60 perc', price: '3 500 Ft' },
-      { name: 'Egyéni óra', duration: '60 perc', price: '8 000 Ft' },
-      { name: 'Bérlet (8 alkalom)', duration: 'csoportos órákra', price: '25 000 Ft' },
-    ],
+    featured: false,
+    cta: 'Érdeklődöm',
+    ctaHash: '#kapcsolat',
+    note: 'Hatha, yin és női jóga – egyéni és kis csoportos órákban. Az óra díját és időpontját egyeztetés után, a létszám és az óratípus alapján beszéljük meg. Írj nekem, és megtaláljuk a hozzád illő formát.',
   },
   {
     title: 'Masszőr',
@@ -116,6 +133,7 @@ const plans = [
     headerBg: 'linear-gradient(135deg, #EDF0F3, #DDE3E8)',
     featured: false,
     cta: 'Érdeklődöm',
+    ctaHash: '#kapcsolat',
     note: 'A masszázs személyes jelenlétet igényel, ezért az időpontot és a díjat egyeztetés után, egyedileg beszéljük meg. Írj nekem, és megkeressük a hozzád illő megoldást.',
   },
 ]

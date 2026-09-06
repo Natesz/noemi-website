@@ -6,20 +6,23 @@
         <h2 class="section-title">Foglalj online logopédiai órát</h2>
         <div class="section-divider"></div>
         <p class="section-subtitle">
-          Válaszd ki a napot, a pontos időpontot és az óra hosszát – a visszaigazolást
-          és a videóhívás linkjét e-mailben azonnal megkapod.
+          Válaszd ki, milyen alkalmat szeretnél, majd a napot és a pontos időpontot –
+          a visszaigazolást és a videóhívás linkjét e-mailben azonnal megkapod.
         </p>
       </div>
 
-      <!-- Választható óratípusok -->
+      <!-- Foglalható alkalmak -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
         <div
-          v-for="option in durations"
-          :key="option.minutes"
-          class="bg-white rounded-2xl p-6 ring-1 ring-line shadow-sm text-center"
+          v-for="option in bookableTypes"
+          :key="option.title"
+          class="bg-white rounded-2xl p-6 ring-1 ring-line shadow-sm text-center flex flex-col"
         >
-          <p class="font-serif text-3xl font-semibold text-heading">{{ option.minutes }}<span class="text-lg"> perc</span></p>
-          <p class="text-sm text-text-main/70 mt-2 leading-relaxed">{{ option.description }}</p>
+          <p class="font-serif text-3xl font-semibold text-heading">
+            {{ option.length }}<span class="text-lg"> perc</span>
+          </p>
+          <p class="text-sm font-medium text-heading mt-1">{{ option.title }}</p>
+          <p class="text-sm text-text-main/70 mt-2 leading-relaxed flex-1">{{ option.description }}</p>
           <p class="mt-4 font-semibold text-primary-dark">{{ option.price }}</p>
         </div>
       </div>
@@ -109,7 +112,9 @@ import { ref, onBeforeUnmount } from 'vue'
 import { email as contactEmail } from '../data/contact'
 
 /**
- * A Cal.com foglalási link, pl. "nyevelka-noemi/logopedia".
+ * A Cal.com foglalási link. Mivel több eseménytípus közül lehet választani
+ * (felmérés / konzultáció / foglalkozás), ide a profil neve kerül – pl. "nyevelka-noemi" –,
+ * így a naptárban megjelenik mind. Egyetlen eseményhez: "nyevelka-noemi/felmeres".
  * A Netlify környezeti változói között kell beállítani: VITE_CAL_LINK.
  * Amíg nincs beállítva, e-mailes egyeztetést ajánlunk fel helyette.
  */
@@ -183,13 +188,28 @@ onBeforeUnmount(() => {
 })
 
 /**
- * FIGYELEM: az árakat a valós díjakra kell cserélni, és ugyanezeket kell
- * beállítani a Cal.com „multiple duration” eseménytípusnál is.
+ * Ugyanezeket az alkalmakat kell külön eseménytípusként felvenni a Cal.com-ban,
+ * a lenti hosszakkal. Az árak forrása a díjszabás (PricingSection.vue).
  */
-const durations = [
-  { minutes: 30, description: 'Rövid, fókuszált gyakorlás – jellemzően kisebb gyerekeknek.', price: '8 000 Ft' },
-  { minutes: 45, description: 'A leggyakoribb óratípus, elég idő a gyakorlásra és a visszajelzésre.', price: '10 000 Ft' },
-  { minutes: 60, description: 'Teljes óra – első konzultációhoz és állapotfelméréshez is ezt ajánlom.', price: '12 000 Ft' },
+const bookableTypes = [
+  {
+    length: 60,
+    title: 'Logopédiai felmérés',
+    description: 'A közös munka első alkalma: felmérjük az aktuális állapotot, és megbeszéljük a terápiás tervet.',
+    price: '13 500 Ft',
+  },
+  {
+    length: 30,
+    title: 'Konzultáció',
+    description: 'Rövid, fókuszált beszélgetés, ha egy konkrét kérdésben szeretnél szakmai véleményt.',
+    price: '9 500 Ft',
+  },
+  {
+    length: 45,
+    title: 'Foglalkozás',
+    description: 'A felmérés után induló rendszeres órák – 30 vagy 45 percben, 4 vagy 8 alkalmas bérlettel.',
+    price: 'Bérletből',
+  },
 ]
 
 const notes = [
@@ -207,7 +227,7 @@ const notes = [
   },
   {
     title: 'Fizetés',
-    text: 'Az első óra után e-mailben küldöm a számlát, a díjat banki átutalással rendezheted.',
+    text: 'A díjat banki átutalással rendezheted, a számlát e-mailben küldöm. A rendszeres órákra bérlet váltható.',
   },
 ]
 </script>
